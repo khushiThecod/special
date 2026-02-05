@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine Surprise 💖</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #ff758c, #ff7eb3);
+    overflow: hidden;
+}
+
+.slider {
+    display: flex;
+    width: 500vw;
+    transition: transform 1s ease;
+}
+
+.page {
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    padding-top: 70px;
+}
+
+/* ---------- LOGIN ---------- */
+.login-box {
+    background: white;
+    width: 300px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 10px 25px;
+    background: #ff4d6d;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* ---------- TEDDY ---------- */
+.teddy img {
+    width: 220px;
+}
+
+/* ---------- ENVELOPE ---------- */
+.envelope {
+    font-size: 100px;
+    cursor: pointer;
+}
+
+.letter {
+    display: none;
+    background: white;
+    width: 280px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    animation: slideUp 1s forwards;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(80px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* ---------- HEART RAIN ---------- */
+.heart {
+    position: fixed;
+    top: -20px;
+    font-size: 20px;
+    animation: fall 4s linear infinite;
+}
+
+@keyframes fall {
+    to { transform: translateY(110vh); opacity: 0; }
+}
+
+/* ---------- POLAROID STACK ---------- */
+.stack {
+    position: relative;
+    width: 260px;
+    height: 320px;
+    margin: auto;
+}
+
+.polaroid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 260px;
+    background: white;
+    padding: 10px 10px 35px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.5s, opacity 0.5s;
+}
+
+.polaroid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.left { transform: rotate(-7deg); }
+.right { transform: rotate(7deg); }
+
+/* ---------- FINAL PAGE ---------- */
+.final {
+    color: white;
+    font-size: 28px;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px pink; }
+    to { text-shadow: 0 0 30px red; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="slider" id="slider">
+
+<!-- PAGE 1 LOGIN -->
+<div class="page">
+    <div class="login-box">
+        <h2>💌 Valentine Login</h2>
+        <input type="text" id="username" placeholder="Your Name">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Enter 💖</button>
+    </div>
+</div>
+
+<!-- PAGE 2 TEDDY -->
+<div class="page">
+    <h1>Welcome <span id="nameShow"></span> 💕</h1>
+    <div class="teddy">
+        <img src="kiss.gif">
+    </div>
+    <p>
+<h2> Dear Love 🧸,<br></h2>
+This is a small surprise for you from me,<br>
+sorry shonuu I m physicaly not available with uh ,<br>
+but I hope this calms you.
+</p>
+    <button onclick="goSlide(2)">Next ➡️</button>
+</div>
+
+<!-- PAGE 3 LETTER -->
+<div class="page">
+    <h2>Click the Envelope 💌</h2>
+    <div class="envelope" onclick="openLetter()">✉️</div>
+
+    <div class="letter" id="letter">
+        <h3>My Love ❤️</h3>
+        <p>
+       I know that in our relo we have never,<br>
+celebrated valentine day together properly,<br>
+last year your accident happened,<br>
+and this year I went due to our fights ,<br>
+but i want to tell you that ,<br>
+you are always gonna b special for me,<br>
+I always choose you as valentine for till the end of my life,<br>
+SORRY for not being phsically availabe but'll celebrate this in different way,<br>
+              </p>
+        <button onclick="goSlide(3)">Memories 📸</button>
+    </div>
+</div>
+
+<!-- PAGE 4 PHOTOS -->
+<div class="page">
+    <h2>Tap the Memories 💞</h2>
+
+    <div class="stack">
+        <div class="polaroid left" style="z-index:4" onclick="removePhoto(this)">
+            <img src="lovek.jpeg">
+        </div>
+
+        <div class="polaroid right" style="z-index:3" onclick="removePhoto(this)">
+            <img src="lovem.jpeg">
+        </div>
+
+        <div class="polaroid left" style="z-index:2" onclick="removePhoto(this)">
+            <img src="lovemk.jpeg">
+        </div>
+
+        <div class="polaroid right" style="z-index:1" onclick="removePhoto(this)">
+            <img src="mahis.jpeg">
+        </div>
+    </div>
+
+    <br>
+    <button onclick="goSlide(4)">Last ❤️</button>
+</div>
+
+<!-- PAGE 5 FINAL -->
+<div class="page">
+    <div class="final">
+        <h1>Forever Yours 💖</h1>
+        <p>
+            No distance, no time,<br>
+            just love… always 💞
+        </p>
+        <p>Happy Valentine’s Day ❤️</p>
+    </div>
+</div>
+
+</div>
+
+<script>
+/* SLIDE CONTROL */
+function goSlide(n) {
+    document.getElementById("slider").style.transform =
+        "translateX(-" + (n * 100) + "vw)";
+}
+
+/* LOGIN */
+function login() {
+    let name = document.getElementById("username").value;
+    let pass = document.getElementById("password").value;
+
+    if (pass === "love123") {
+        document.getElementById("nameShow").innerText = name;
+        goSlide(1);
+    } else {
+        alert("Wrong password 💔");
+    }
+}
+
+/* ENVELOPE */
+function openLetter() {
+    document.querySelector(".envelope").innerText = "📬";
+    document.getElementById("letter").style.display = "block";
+    heartRain();
+}
+
+/* HEART RAIN */
+function heartRain() {
+    for (let i = 0; i < 30; i++) {
+        let heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerText = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 4000);
+    }
+}
+
+/* REMOVE POLAROID */
+function removePhoto(card) {
+    card.style.transform = "translateY(40px) scale(0.7)";
+    card.style.opacity = "0";
+    card.style.pointerEvents = "none";
+
+    setTimeout(() => card.remove(), 500);
+}
+</script>
+
+</body>
+</html>
